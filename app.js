@@ -211,7 +211,7 @@ app.get('/todos/', async (request, response) => {
             FROM
                 todo
             WHERE
-                todo LIKE = '%${search_q}%';`
+                todo LIKE '%${search_q}%';`
       data = await database.all(getTodosQuery)
       response.send(data.map(eachItem => outPutResult(eachItem)))
       break
@@ -259,7 +259,7 @@ app.get('/agenda/', async (request, response) => {
   console.log(isMatch(date, 'yyyy-MM-dd'))
 
   if (isMatch(date, 'yyyy-MM-dd')) {
-    const newDate = format(new Date (date), 'yyyy-MM-dd')
+    const newDate = format(new Date(date), 'yyyy-MM-dd')
     console.log(newDate)
     const requestQuery = `SELECT * FROM todo WHERE due_date = '${newDate}';`
     const responseResult = await database.all(requestQuery)
@@ -280,7 +280,7 @@ app.post('/todos/', async (request, response) => {
         category === 'LEARNING'
       ) {
         if (isMatch(dueDate, 'yyyy-MM-dd')) {
-          const postNewDueDate = format(new Date (dueDate), 'yyyy-MM-dd')
+          const postNewDueDate = format(new Date(dueDate), 'yyyy-MM-dd')
           const postTodoQuery = `
             INSERT INTO
                 todo (id, todo, category, priority, status, due_date)
@@ -376,7 +376,7 @@ app.put('/todos/:todoId/', async (request, response) => {
 
     case requestBody.dueDate !== undefined:
       if (isMatch(dueDate, "yyyy-MM-dd")) {
-        const newDueDate = format(new Date (dueDate), "yyyy-MM-dd");
+        const newDueDate = format(new Date(dueDate), "yyyy-MM-dd");
         updateTodoQuery = `
       UPDATE todo SET todo = '${todo}', priority = '${priority}', status = '${status}', category = '${category}', 
       due_date = '${newDueDate}' WHERE id = ${todoId};`
