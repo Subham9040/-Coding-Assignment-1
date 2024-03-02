@@ -388,6 +388,7 @@ app.put('/todos/:todoId/', async (request, response) => {
       }
       break
   }
+})
 
 app.delete('/todos/:todoId/', async (request, response) => {
   const {todoId} = request.params
